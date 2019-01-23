@@ -11,7 +11,7 @@ class QuestionController extends Controller
 
     public function __construct()
     {
-        //$this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('jwt')->except(['index', 'show']);
     }
 
     /**
@@ -73,7 +73,7 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         $question->delete();
-        
+
         return response(null, 204);
     }
 }
