@@ -8,6 +8,23 @@ class Question extends Model
 {
 
     /**
+     * Attributes for mass assignment
+     *
+     * @var array
+     */
+    protected $fillable = ['title', 'slug', 'body', 'category_id', 'user_id'];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
      * Question belongs to user
      *
      * @return App\Models\User
@@ -28,12 +45,17 @@ class Question extends Model
     }
 
     /**
-     * Question belongs to category
+     * Question belongs to a category
      *
      * @return App\Models\Category
      */
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function getPathAttribute()
+    {
+        return asset("api/questions/$this->slug");
     }
 }
