@@ -72,7 +72,8 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        $question->destroy();
+        $question->delete();
+        
         return response(null, 204);
     }
 }
