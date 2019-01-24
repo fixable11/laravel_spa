@@ -20,6 +20,10 @@
             type="submit"
             >Login</v-btn>
 
+            <router-link :to="{ name: 'signup', params: {}}">
+                <v-btn color="blue">Sign up</v-btn>
+            </router-link>
+
         </v-form>
     </v-container>
 </template>
@@ -31,12 +35,23 @@ export default {
             form: {
                 email: null,
                 password: null,
-            }
+            },
+        }
+    },
+    created(){
+        if(User.signedIn()){
+            this.$router.push({'name': 'forum'});
         }
     },
     methods: {
         login(event){
-            User.login(this.form);
+            axios.post('/api/auth/login', this.form)
+            .then((res) => {
+                User.responseAfterLogin(res);
+                //this.$router.push({'name': 'forum'});
+                window.location = '/forum'; //workaround
+            })
+            .catch(error => flash(error.response.data.error, 'error'));
         }
     }
 }

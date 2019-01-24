@@ -23,12 +23,24 @@
     <div id="app">
         @include('layouts.nav')
 
-        <main class="main">
+        @yield('content')
+        {{-- <main class="main">
             @yield('content')
-        </main>
+        </main> --}}
 
         <flash message="{{ session('flash') }}"></flash> 
 
     </div>
+
+    <script>
+        window.App = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'user' => Auth::user(),
+            'signedIn' => Auth::check(),
+            'loginUrl' => route('login'),
+            'signupUrL' => route('signup'),
+        ]) !!}
+    </script>
+
 </body>
 </html>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Traits\RegistersUsers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\SignupRequest;
 
 class AuthController extends Controller
 {
@@ -88,7 +89,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function signup(Request $request)
+    public function signup(SignupRequest $request)
     {
         $user = User::create([
             'name' => $request->name,

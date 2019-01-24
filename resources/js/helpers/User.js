@@ -7,17 +7,6 @@ class User {
       
     }
   
-    login(formData) {
-        axios.post('/api/auth/login', formData)
-        .then((res) => {
-            this.responseAfterLogin(res);
-        })
-        .catch((error) => {
-            //flash(error.response.data.error, 'error');
-            console.dir(error);
-        });
-    }
-
     responseAfterLogin(res){
         const access_token = res.data.access_token;
         const username = res.data.user;
@@ -38,7 +27,7 @@ class User {
     }
 
     signedIn(){
-        return this.hasToken;
+        return this.hasToken();
     }
 
     logout(){
@@ -51,7 +40,7 @@ class User {
         }
     }
 
-    name(){
+    id(){
         if(this.signedIn){
             const payload = Token.payload(AppStorage.getToken());
             

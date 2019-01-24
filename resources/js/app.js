@@ -33,7 +33,10 @@ window.User = User;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('flash', require('./components/Flash.vue').default);
-Vue.component('app-home', require('./components/AppHome.vue').default);
+
+Vue.component('toolbar', require('./components/Toolbar.vue').default);
+Vue.component('app-main', require('./components/AppMain.vue').default);
+Vue.component('app-footer', require('./components/AppFooter.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

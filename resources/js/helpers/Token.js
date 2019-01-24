@@ -8,7 +8,8 @@ class Token{
         const payload = this.payload(token);
         
         if(payload){
-            return payload.iss == "http://lara/api/auth/login" ? true : false;
+            //return payload.iss == App.loginUrl || App.signupUrl ? true : false;
+            return payload.iss == 'http://lara/api/auth/login' || 'http://lara/api/auth/signup' ? true : false;
         }
 
         return false;

@@ -2,6 +2,10 @@
 
 @section('content')
     <v-app>
-        <app-home></app-home>
+        <toolbar></toolbar>        
+
+        <app-main></app-main>
+
+        <app-footer></app-footer>
     </v-app>
 @endsection
