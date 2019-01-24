@@ -3,12 +3,17 @@
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title>Bitfumes</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat>Forum</v-btn>
-      <v-btn flat>Ask question</v-btn>
-      <v-btn flat>Category</v-btn>
-      <v-btn flat>Login</v-btn>
-    </v-toolbar-items>
+    <div class="hidden-sm-and-down">
+    
+        <v-btn flat>Forum</v-btn>
+        <v-btn flat>Ask question</v-btn>
+        <v-btn flat>Category</v-btn>
+
+        <router-link to="/login">
+            <v-btn flat>Login</v-btn>
+        </router-link>
+        
+    </div>
   </v-toolbar>
 </template>
 
