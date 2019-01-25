@@ -24,9 +24,10 @@ export default {
         return {
             items: [
                 {'title': 'Forum', routeName: 'forum', show: true},
+                {'title': 'Ask Question', routeName: 'ask', show: User.signedIn},
                 {'title': 'Login', routeName: 'login', show: !User.signedIn()},
                 {'title': 'Logout', routeName: 'logout', show: User.signedIn()},
-                //{'title': 'Ask Question', routeName: 'ask-question', show: User.signedIn},
+                
                 //{'title': 'Category', routeName: 'category', show: User.signedIn},
             ]
         }

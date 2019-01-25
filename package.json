@@ -28,6 +28,7 @@
     "dependencies": {
         "vue-izitoast": "^1.1.2",
         "vue-router": "^3.0.2",
+        "vue-simplemde": "^0.5.1",
         "vuetify": "^1.4.3"
     }
 }

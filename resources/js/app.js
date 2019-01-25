@@ -10,9 +10,14 @@ require('./bootstrap');
 import Vuetify from 'vuetify';
 import {router} from './router/router.js';
 import VueIziToast from 'vue-izitoast';
+import VueSimplemde from 'vue-simplemde'
+import md from 'marked';
+
+window.md = md;
 
 Vue.use(Vuetify);
 Vue.use(VueIziToast);
+Vue.use(VueSimplemde);
 
 
 import User from "./helpers/User";

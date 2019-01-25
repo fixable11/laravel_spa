@@ -7,6 +7,8 @@ import Login from '../components/login/Login.vue';
 import Signup from '../components/login/Signup.vue';
 import Logout from '../components/login/Logout.vue';
 import Forum from '../components/forum/Forum.vue';
+import Question from '../components/forum/pages/Question.vue';
+import Ask from '../components/forum/pages/Ask.vue';
 
 
 const routes = [
@@ -14,25 +16,31 @@ const routes = [
         name: 'login',
         path: '/login',
         component: Login,
-        //props: true,
     },
     {
         name: 'signup',
         path: '/signup',
         component: Signup,
-        //props: true,
     },
     {
         name: 'forum',
         path: '/forum',
         component: Forum,
-        //props: true,
     },
     {
         name: 'logout',
         path: '/logout',
         component: Logout,
-        //props: true,
+    },
+    {
+        name: 'questions',
+        path: '/questions/:slug',
+        component: Question,
+    },
+    {
+        name: 'ask',
+        path: '/ask',
+        component: Ask,
     },
 ];
 

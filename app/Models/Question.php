@@ -8,6 +8,20 @@ class Question extends Model
 {
 
     /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($question){
+            $question->slug = str_slug($question->title);
+        });
+    }
+
+    /**
      * Attributes for mass assignment
      *
      * @var array
@@ -56,6 +70,6 @@ class Question extends Model
 
     public function getPathAttribute()
     {
-        return asset("api/questions/$this->slug");
+        return "/questions/$this->slug";
     }
 }
