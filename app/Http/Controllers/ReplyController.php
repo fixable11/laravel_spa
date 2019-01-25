@@ -69,12 +69,16 @@ class ReplyController extends Controller
      */
     public function update(Question $question, Reply $reply, Request $request)
     {
-        Reply::where([
+        $reply = $reply->where([
             'question_id' => $question->id,
             'id' => $reply->id
-        ])->firstOrFail()->update($request->all());
+        ])->first();
+        
+        $reply->update($request->all());
 
-        return response('Updated', 200);
+        return response([
+            'reply' => new ReplyResource($reply)
+        ], 200);
     }
 
     /**
@@ -86,7 +90,8 @@ class ReplyController extends Controller
      */
     public function destroy(Question $question, Reply $reply)
     {
-        $reply->delete();
+        $question->replies()->where('id', $reply->id)->delete();
+        
         return response(null, 204);
     }
 }

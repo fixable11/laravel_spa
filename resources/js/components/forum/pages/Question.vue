@@ -82,9 +82,7 @@ export default {
     created(){
         this.fetchQuestion();
 
-        events.$on('newReply', reply => {
-            this.question.replies.push(reply);
-        });
+        this.listen();
     },
     computed:{
 
@@ -134,6 +132,36 @@ export default {
                 this.form.body = res.data.data.body;
             })
             .catch(error => flash('Error loading question', 'error'));
+        },
+
+        listen(){
+            events.$on('newReply', reply => {
+                this.question.replies.push(reply);
+            });
+
+            events.$on('deleteReply', data => {
+
+                let url = this.endpoint + '/replies/' + data.reply.id;
+                
+                axios.delete(url)
+                .then(res => this.question.replies.splice(data.index, 1))
+                .catch();
+                
+            });
+
+            events.$on('updateReply', data => {
+
+                let url = this.endpoint + '/replies/' + data.reply.id;
+
+                axios.put(url, data.reply)
+                .then(res => {
+                    this.question.replies[data.replyIndex].body = res.data.reply.body;
+
+                    this.question.replies[data.replyIndex].editState = false;
+                })
+                .catch();
+
+            });
         }
     }
 }
