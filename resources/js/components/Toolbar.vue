@@ -25,10 +25,9 @@ export default {
             items: [
                 {'title': 'Forum', routeName: 'forum', show: true},
                 {'title': 'Ask Question', routeName: 'ask', show: User.signedIn},
+                {'title': 'Create Category', routeName: 'categories.create', show: User.signedIn},
                 {'title': 'Login', routeName: 'login', show: !User.signedIn()},
-                {'title': 'Logout', routeName: 'logout', show: User.signedIn()},
-                
-                //{'title': 'Category', routeName: 'category', show: User.signedIn},
+                {'title': 'Logout', routeName: 'logout', show: User.signedIn()},    
             ]
         }
     },

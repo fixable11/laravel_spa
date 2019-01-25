@@ -9,6 +9,7 @@ import Logout from '../components/login/Logout.vue';
 import Forum from '../components/forum/Forum.vue';
 import Question from '../components/forum/pages/Question.vue';
 import Ask from '../components/forum/pages/Ask.vue';
+import CreateCategory from '../components/forum/pages/CreateCategory.vue';
 
 
 const routes = [
@@ -41,6 +42,11 @@ const routes = [
         name: 'ask',
         path: '/ask',
         component: Ask,
+    },
+    {
+        name: 'categories.create',
+        path: '/categories/create',
+        component: CreateCategory,
     },
 ];
 

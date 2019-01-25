@@ -1,15 +1,16 @@
 <template>
-    <v-container fluid grid-list-md>
-        <v-layout row wrap>
+    <v-container grid-list-md>
+        <v-layout row>
 
-            <v-flex xs8>
+            <v-flex xs12 md9>
                 <question 
                 v-for="(question, index) in questions"
                 :key="index"
                 :question="question"
                 ></question>
             </v-flex>
-            <v-flex xs4>
+            
+            <v-flex xs12 md3>
                 <sidebar></sidebar>
             </v-flex>
 
