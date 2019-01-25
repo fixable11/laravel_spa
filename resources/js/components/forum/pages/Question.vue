@@ -17,7 +17,7 @@
                 <v-btn icon>
                     <v-icon>edit</v-icon>
                 </v-btn>
-                <v-btn icon>
+                <v-btn icon @click="destroy">
                     <v-icon color="red">delete</v-icon>
                 </v-btn>
             </v-card-actions>
@@ -41,7 +41,7 @@ export default {
             this.question = res.data.data;
             this.question.ready = true;
         })
-        .catch(error => flash('Error loading question', 'error'))
+        .catch(error => flash('Error loading question', 'error'));
     },
     computed:{
         body(){
@@ -49,6 +49,13 @@ export default {
         },
         own(){
             return User.own(this.question.user_id);
+        }
+    },
+    methods: {
+        destroy(){
+            axios.delete(`/api/questions/${this.question.slug}`)
+            .then(res => this.$router.push('/forum'))
+            .catch(error => flash('Error deleting question', 'error'))
         }
     }
 }

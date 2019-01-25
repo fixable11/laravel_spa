@@ -2153,6 +2153,17 @@ __webpack_require__.r(__webpack_exports__);
     own: function own() {
       return User.own(this.question.user_id);
     }
+  },
+  methods: {
+    destroy: function destroy() {
+      var _this2 = this;
+
+      axios.delete("/api/questions/".concat(this.question.slug)).then(function (res) {
+        return _this2.$router.push('/forum');
+      }).catch(function (error) {
+        return flash('Error deleting question', 'error');
+      });
+    }
   }
 });
 
@@ -57615,7 +57626,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-btn",
-                        { attrs: { icon: "" } },
+                        { attrs: { icon: "" }, on: { click: _vm.destroy } },
                         [
                           _c("v-icon", { attrs: { color: "red" } }, [
                             _vm._v("delete")
