@@ -1,6 +1,6 @@
 <template>
     <v-container v-if="question.ready">
-        <v-layout row wrap>
+        <v-layout row>
             <v-flex xs12 v-if="!editState">
                 <v-card>
 
@@ -12,7 +12,7 @@
                             <span class="grey--text">{{question.user}} said {{question.created_at}}</span>
                         </div>
                         <v-spacer></v-spacer>
-                        <v-btn class="teal">5 Replies</v-btn>
+                        <v-btn class="teal" dark>{{question.replies_count}} Replies</v-btn>
                     </v-card-title>
 
                     <v-card-text v-html="body"></v-card-text>
@@ -56,11 +56,17 @@
             </v-flex>
 
         </v-layout>
+
+        <replies :question="question"></replies>
+
     </v-container>
 </template>
 
 <script>
+import Replies from "../auxiliary/Replies.vue";
+
 export default {
+    components: { Replies },
     data(){
         return {
             question: {
@@ -74,15 +80,11 @@ export default {
         }
     },
     created(){
-        axios.get(this.endpoint)
-        .then(res => {
-            this.question = res.data.data;
-            this.question.ready = true;
+        this.fetchQuestion();
 
-            this.form.title = res.data.data.title;
-            this.form.body = res.data.data.body;
-        })
-        .catch(error => flash('Error loading question', 'error'));
+        events.$on('newReply', reply => {
+            this.question.replies.push(reply);
+        });
     },
     computed:{
 
@@ -120,6 +122,18 @@ export default {
                 this.question.body = this.form.body;
             })
             .catch(error => flash('Error updating question', 'error'))
+        },
+
+        fetchQuestion(){
+             axios.get(this.endpoint)
+            .then(res => {
+                this.question = res.data.data;
+                this.question.ready = true;
+
+                this.form.title = res.data.data.title;
+                this.form.body = res.data.data.body;
+            })
+            .catch(error => flash('Error loading question', 'error'));
         }
     }
 }

@@ -7,6 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class Reply extends Model
 {   
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($reply){
+            $reply->user_id = auth()->id();
+        });
+    }
+
+    /**
+     * Attributes for mass assignment
+     *
+     * @var array
+     */
     protected $fillable = ['body', 'user_id'];
 
     /**

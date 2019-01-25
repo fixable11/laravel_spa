@@ -22,6 +22,13 @@ class Question extends Model
     }
 
     /**
+     * Eager loading
+     *
+     * @var array
+     */
+    protected $with = ['replies'];
+
+    /**
      * Attributes for mass assignment
      *
      * @var array
