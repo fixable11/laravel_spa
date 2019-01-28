@@ -1877,6 +1877,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -58569,6 +58587,58 @@ var render = function() {
   return _c(
     "v-toolbar",
     [
+      _c(
+        "v-menu",
+        { staticClass: "hidden-md-and-up" },
+        [
+          _c("v-toolbar-side-icon", {
+            attrs: { slot: "activator" },
+            slot: "activator"
+          }),
+          _vm._v(" "),
+          _c(
+            "v-list",
+            _vm._l(_vm.items, function(item, index) {
+              return _c(
+                "v-list-tile",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: item.show,
+                      expression: "item.show"
+                    }
+                  ],
+                  key: index
+                },
+                [
+                  _c(
+                    "v-list-tile-content",
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: { name: item.routeName, params: {} } } },
+                        [
+                          _c("v-btn", { attrs: { flat: "" } }, [
+                            _vm._v(_vm._s(item.title))
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            }),
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("v-toolbar-title", [_vm._v("Bitfumes")]),
       _vm._v(" "),
       _c("v-spacer"),
@@ -58813,7 +58883,7 @@ var render = function() {
     [
       _c(
         "v-menu",
-        { attrs: { "offset-y": "" } },
+        { attrs: { bottom: "", left: "", "offset-y": "" } },
         [
           _c(
             "v-btn",

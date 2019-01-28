@@ -1,6 +1,6 @@
 <template>
     <div class="text-xs-center">
-        <v-menu offset-y>
+        <v-menu bottom left offset-y>
              <v-btn icon slot="activator">
                 <v-icon :color="color">add_alert</v-icon> {{unreadCount}}
             </v-btn>
