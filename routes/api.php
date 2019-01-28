@@ -41,3 +41,6 @@ Route::apiResource('/questions/{question}/replies', 'ReplyController');
 
 Route::post('/questions/{question}/replies/{reply}/like', 'LikeController@like');
 Route::delete('/questions/{question}/replies/{reply}/unlike', 'LikeController@unlike');
+
+Route::post('notifications', 'NotificationController@index');
+Route::post('markAsRead', 'NotificationController@markAsRead');

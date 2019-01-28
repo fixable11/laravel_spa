@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Reply;
 use App\Models\Question;
 use App\Http\Resources\ReplyResource;
+use App\Notifications\NewReplyNotification;
 
 class ReplyController extends Controller
 {
@@ -37,6 +38,10 @@ class ReplyController extends Controller
     {
         $reply = $question->replies()->create($request->all());
 
+        if($reply->user_id !== $question->user_id){
+            $question->user->notify(new NewReplyNotification($reply));
+        }
+    
         return response([
             'reply' => new ReplyResource($reply),
         ], 201);

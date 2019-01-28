@@ -71,7 +71,7 @@ export default {
     methods: {
 
         own(id){
-            return User.own(id);
+            return User.signedIn() ? User.own(this.question.user_id) : false;
         },
 
         destroy(data){

@@ -3,6 +3,9 @@
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title>Bitfumes</v-toolbar-title>
     <v-spacer></v-spacer>
+
+    <app-notification v-if="signedIn"></app-notification>
+
     <div class="hidden-sm-and-down">
     
         <router-link
@@ -19,9 +22,12 @@
 
 
 <script>
+import AppNotification from "./forum/auxiliary/AppNotification";
 export default {
+    components: { AppNotification },
     data(){
         return {
+            signedIn: User.signedIn(),
             items: [
                 {'title': 'Forum', routeName: 'forum', show: true},
                 {'title': 'Ask Question', routeName: 'ask', show: User.signedIn},

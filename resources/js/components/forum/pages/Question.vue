@@ -91,7 +91,7 @@ export default {
         },
 
         own(){
-            return User.own(this.question.user_id);
+            return User.signedIn() ? User.own(this.question.user_id) : false;
         },
 
         endpoint(){
