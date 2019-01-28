@@ -10,6 +10,9 @@
                 <v-card-title>
                     <div class="title blue--text">{{reply.user}}</div>
                     <div class="ml-2">said {{reply.created_at}}</div>
+
+                    <v-spacer></v-spacer>
+                    <like :reply="reply" :question-slug="question.slug"></like>
                 </v-card-title>
 
                 <v-divider></v-divider>
@@ -35,8 +38,6 @@
                                 <v-btn icon small @click="destroy({index, reply})">
                                     <v-icon color="red">delete</v-icon>
                                 </v-btn>
-                                <v-spacer></v-spacer>
-                                <like :reply="reply" :question-slug="question.slug"></like>
                             </v-layout>
                         </v-card-actions>
                     </div>

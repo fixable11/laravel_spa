@@ -6,6 +6,7 @@ use App\Model\Like;
 use Illuminate\Http\Request;
 use App\Models\Reply;
 use App\Models\Question;
+use App\Events\LikeEvent;
 
 class LikeController extends Controller
 {
@@ -20,6 +21,8 @@ class LikeController extends Controller
         $reply->like()->create([
             'user_id' => auth()->id()
         ]);
+
+        broadcast(new LikeEvent($reply->id, 1))->toOthers();
     }
 
     public function unlike(Question $question, Reply $reply)
@@ -28,6 +31,7 @@ class LikeController extends Controller
             'user_id' => auth()->id()
         ])->first()
           ->delete();
-            
+        
+        broadcast(new LikeEvent($reply->id, 0))->toOthers();
     }
 }

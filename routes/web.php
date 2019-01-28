@@ -12,6 +12,9 @@
 */
 
 Route::view('/', 'home');
+// Route::get('/test', function(){
+//     phpinfo();
+// });
 Route::view('/{any}', 'home');
 Route::view('/{any}/{any1}', 'home');
 
