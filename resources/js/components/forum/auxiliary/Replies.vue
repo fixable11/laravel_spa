@@ -28,13 +28,15 @@
                         <v-divider></v-divider>
 
                         <v-card-actions>
-                            <v-layout>
+                            <v-layout align-center>
                                 <v-btn icon small @click="editing(reply)">
                                     <v-icon>edit</v-icon>
                                 </v-btn>
                                 <v-btn icon small @click="destroy({index, reply})">
                                     <v-icon color="red">delete</v-icon>
                                 </v-btn>
+                                <v-spacer></v-spacer>
+                                <like :reply="reply" :question-slug="question.slug"></like>
                             </v-layout>
                         </v-card-actions>
                     </div>
@@ -51,9 +53,10 @@
 <script>
 import NewReply from "./NewReply";
 import EditReply from "./EditReply";
+import Like from "./Like";
 export default {
     props: ['question'],
-    components: { NewReply, EditReply },
+    components: { NewReply, EditReply, Like },
     data(){
         return {
            replies: this.question.replies,

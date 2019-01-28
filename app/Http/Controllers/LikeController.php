@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Like;
 use Illuminate\Http\Request;
 use App\Models\Reply;
+use App\Models\Question;
 
 class LikeController extends Controller
 {
@@ -14,19 +15,17 @@ class LikeController extends Controller
         $this->middleware('jwt');
     }
 
-    public function like(Reply $reply)
+    public function like(Question $question, Reply $reply)
     {
         $reply->like()->create([
-            //'user_id' => auth()->id()
-            'user_id' => 1
+            'user_id' => auth()->id()
         ]);
     }
 
-    public function unlike(Reply $reply)
+    public function unlike(Question $question, Reply $reply)
     {
         $reply->like()->where([
-            //'user_id' => auth()->id()
-            'user_id' => 1,
+            'user_id' => auth()->id()
         ])->first()
           ->delete();
             
