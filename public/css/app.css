@@ -11814,3 +11814,7 @@ a.text-dark:focus {
   margin-right: auto;
 }
 
+.error-block {
+  margin-bottom: 10px;
+}
+

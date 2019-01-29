@@ -9,7 +9,13 @@
             required
             ></v-text-field>
 
-            <v-btn type="submit" color="teal">Create</v-btn>
+            <div class="error-block" v-if="errors.name">
+                <span class="red--text" 
+                v-for="(error, index) in errors.name"
+                :key="index">{{error}}</span>
+            </div>
+
+            <v-btn :disabled="disabled" type="submit" color="teal">Create</v-btn>
 
         </v-form>
 
@@ -81,6 +87,7 @@ export default {
                 name: null
             },
             categories: [],
+            errors: {},
         }
     },
 
@@ -101,12 +108,18 @@ export default {
 
     methods:{
         create(){
+            
+            if(!User.signedIn()){
+                flash('You need to be authorized to do this action', 'info');
+                return;
+            }
+
             axios.post(this.endpoint, this.form)
             .then(res => {
                 this.categories.unshift(res.data);
                 this.form.name = '';
             })
-            .catch();
+            .catch(error => (this.errors = error.response.data.errors));
         },
 
         destroy(category, index){
@@ -138,12 +151,17 @@ export default {
 
         newName(newName, category){
             category.newName = newName;
-        }
+        },
+
     },
 
     computed: {
         endpoint(){
             return '/api/categories';
+        },
+
+        disabled(){
+            return !(this.form.name);
         }
     }
 }

@@ -2513,6 +2513,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2536,11 +2555,21 @@ __webpack_require__.r(__webpack_exports__);
     askQuestion: function askQuestion() {
       var _this2 = this;
 
+      if (!User.signedIn()) {
+        flash('You need to be authorized to do this action', 'info');
+        return;
+      }
+
       axios.post("/api/questions", this.form).then(function (res) {
         return _this2.$router.push(res.data.path);
       }).catch(function (error) {
         return _this2.errors = error.response.data.errors;
       });
+    }
+  },
+  computed: {
+    disabled: function disabled() {
+      return !(this.form.title && this.form.category_id && this.form.body);
     }
   }
 });
@@ -2631,13 +2660,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
         name: null
       },
-      categories: []
+      categories: [],
+      errors: {}
     };
   },
   created: function created() {
@@ -2657,11 +2693,18 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       var _this2 = this;
 
+      if (!User.signedIn()) {
+        flash('You need to be authorized to do this action', 'info');
+        return;
+      }
+
       axios.post(this.endpoint, this.form).then(function (res) {
         _this2.categories.unshift(res.data);
 
         _this2.form.name = '';
-      }).catch();
+      }).catch(function (error) {
+        return _this2.errors = error.response.data.errors;
+      });
     },
     destroy: function destroy(category, index) {
       var _this3 = this;
@@ -2697,6 +2740,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     endpoint: function endpoint() {
       return '/api/categories';
+    },
+    disabled: function disabled() {
+      return !this.form.name;
     }
   }
 });
@@ -65296,6 +65342,19 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _vm.errors.title
+            ? _c(
+                "div",
+                { staticClass: "error-block" },
+                _vm._l(_vm.errors.title, function(error, index) {
+                  return _c("span", { key: index, staticClass: "red--text" }, [
+                    _vm._v(_vm._s(error))
+                  ])
+                }),
+                0
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c("v-select", {
             attrs: {
               items: _vm.categories,
@@ -65312,6 +65371,19 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _vm.errors.category_id
+            ? _c(
+                "div",
+                { staticClass: "error-block" },
+                _vm._l(_vm.errors.category_id, function(error, index) {
+                  return _c("span", { key: index, staticClass: "red--text" }, [
+                    _vm._v(_vm._s(error))
+                  ])
+                }),
+                0
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c("markdown-editor", {
             model: {
               value: _vm.form.body,
@@ -65322,9 +65394,26 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
-            _vm._v("Ask question")
-          ])
+          _vm.errors.body
+            ? _c(
+                "div",
+                { staticClass: "error-block" },
+                _vm._l(_vm.errors.body, function(error, index) {
+                  return _c("span", { key: index, staticClass: "red--text" }, [
+                    _vm._v(_vm._s(error))
+                  ])
+                }),
+                0
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "green", type: "submit", disabled: _vm.disabled }
+            },
+            [_vm._v("Ask question")]
+          )
         ],
         1
       )
@@ -65379,9 +65468,26 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-btn", { attrs: { type: "submit", color: "teal" } }, [
-            _vm._v("Create")
-          ])
+          _vm.errors.name
+            ? _c(
+                "div",
+                { staticClass: "error-block" },
+                _vm._l(_vm.errors.name, function(error, index) {
+                  return _c("span", { key: index, staticClass: "red--text" }, [
+                    _vm._v(_vm._s(error))
+                  ])
+                }),
+                0
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { disabled: _vm.disabled, type: "submit", color: "teal" }
+            },
+            [_vm._v("Create")]
+          )
         ],
         1
       ),

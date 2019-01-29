@@ -37,8 +37,7 @@
             'csrfToken' => csrf_token(),
             'user' => Auth::user(),
             'signedIn' => Auth::check(),
-            'loginUrl' => route('login'),
-            'signupUrL' => route('signup'),
+            //'isAdmin' => Auth::check(),
             'PUSHER_APP_KEY' => env('PUSHER_APP_KEY'),
             'PUSHER_APP_CLUSTER' => env('PUSHER_APP_CLUSTER'),
         ]) !!}

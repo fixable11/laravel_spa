@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Http\Resources\QuestionResource;
+use App\Http\Requests\QuestionRequest;
 
 class QuestionController extends Controller
 {
@@ -31,8 +32,9 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionRequest $request)
     {
+        dd($request);
         $question = auth()->user()->questions()->create($request->all());
 
         return response(new QuestionResource($question), 201);
@@ -56,7 +58,7 @@ class QuestionController extends Controller
      * @param  \App\Model\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(QuestionRequest $request, Question $question)
     {
         $question->update($request->all());
 
