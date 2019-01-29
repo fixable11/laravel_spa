@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar>
+  <v-toolbar color="indigo" dark>
    
     <v-menu class="hidden-md-and-up">
 
@@ -17,7 +17,9 @@
 
     </v-menu>
 
-    <v-toolbar-title>Bitfumes</v-toolbar-title>
+    <v-toolbar-title>
+        <router-link class="white--text" :to="{ name: 'home' }">Bitfumes</router-link>
+    </v-toolbar-title>
 
     <v-spacer></v-spacer>
 

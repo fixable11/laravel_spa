@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
+import Home from '../components/forum/pages/Home.vue';
 import Login from '../components/login/Login.vue';
 import Signup from '../components/login/Signup.vue';
 import Logout from '../components/login/Logout.vue';
@@ -14,6 +15,11 @@ import NotFoundComponent from '../components/NotFoundComponent.vue';
 
 
 const routes = [
+    {
+        name: 'home',
+        path: '/',
+        component: Home,
+    },
     {
         name: 'login',
         path: '/login',
