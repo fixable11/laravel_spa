@@ -7,6 +7,7 @@ use App\Models\Reply;
 use App\Models\Question;
 use App\Http\Resources\ReplyResource;
 use App\Notifications\NewReplyNotification;
+use App\Events\DeleteReplyEvent;
 
 class ReplyController extends Controller
 {
@@ -96,6 +97,8 @@ class ReplyController extends Controller
     public function destroy(Question $question, Reply $reply)
     {
         $question->replies()->where('id', $reply->id)->delete();
+
+        broadcast(new DeleteReplyEvent($reply->id))->toOthers();
         
         return response(null, 204);
     }

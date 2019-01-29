@@ -162,6 +162,23 @@ export default {
                 .catch();
 
             });
+
+            if(User.signedIn()){ 
+                Echo.private('App.Models.User.' + User.id())
+                    .notification((notification) => {
+                        this.question.replies.push(notification.reply);
+                    });
+            }
+
+            Echo.channel('deleteReplyChannel')
+                .listen('DeleteReplyEvent', (e) => {
+                    for (let index = 0; index < this.question.replies.length; index++) {
+                        if(this.question.replies[index].id == e.id){
+                            this.question.replies.splice(index, 1);
+                        }  
+                    }
+                });
+
         }
     }
 }

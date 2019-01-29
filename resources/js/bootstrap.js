@@ -12,7 +12,7 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
+    //require('bootstrap');
 } catch (e) {}
 
 /**
@@ -25,8 +25,9 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+const jwtToken = `Bearer ${localStorage.getItem('token')}`;
+
 if(localStorage.getItem('token')){
-    let jwtToken = `Bearer ${localStorage.getItem('token')}`;
     window.axios.defaults.headers.common['Authorization'] = jwtToken; 
 }
 
@@ -64,5 +65,10 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: window.App.PUSHER_APP_KEY,
     cluster: window.App.PUSHER_APP_CLUSTER,
-    encrypted: true
+    encrypted: true,
+    auth: {
+        headers: {
+            Authorization: jwtToken
+        }
+    },
 });

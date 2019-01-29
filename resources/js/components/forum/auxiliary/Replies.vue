@@ -64,6 +64,11 @@ export default {
            editState: false,
         }
     },
+
+    created(){
+        
+    },
+
     mounted(){
         this.replies.forEach(reply => {
             this.$set(reply, 'editState', false);
@@ -72,7 +77,7 @@ export default {
     methods: {
 
         own(id){
-            return User.signedIn() ? User.own(this.question.user_id) : false;
+            return User.signedIn() ? User.own(id) : false;
         },
 
         destroy(data){
@@ -85,7 +90,7 @@ export default {
 
         editing(reply){
             this.$set(reply, 'editState', !reply.editState);
-        }
+        },
 
     },
     

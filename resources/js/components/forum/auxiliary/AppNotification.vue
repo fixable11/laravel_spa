@@ -22,14 +22,22 @@
 export default {
     data(){
         return {
-            read: {},
-            unread: {},
+            read: [],
+            unread: [],
             unreadCount: 0
         }
     },
     created(){
-        if(User.signedIn){
+        if(User.signedIn()){
             this.getNotifications();
+        }
+
+        if(User.signedIn()){ 
+            Echo.private('App.Models.User.' + User.id())
+                .notification((notification) => {
+                    this.unread.push();
+                    this.unreadCount++;
+                });
         }
     },
     methods: {
