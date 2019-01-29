@@ -137,6 +137,7 @@ export default {
         listen(){
             events.$on('newReply', reply => {
                 this.question.replies.push(reply);
+                this.question.replies_count++;
             });
 
             events.$on('deleteReply', data => {
@@ -144,7 +145,10 @@ export default {
                 let url = this.endpoint + '/replies/' + data.reply.id;
                 
                 axios.delete(url)
-                .then(res => this.question.replies.splice(data.index, 1))
+                .then(res => {
+                    this.question.replies.splice(data.index, 1);
+                    this.question.replies_count--;
+                })
                 .catch();
                 
             });
@@ -167,6 +171,7 @@ export default {
                 Echo.private('App.Models.User.' + User.id())
                     .notification((notification) => {
                         this.question.replies.push(notification.reply);
+                        this.question.replies_count++;
                     });
             }
 
@@ -175,6 +180,7 @@ export default {
                     for (let index = 0; index < this.question.replies.length; index++) {
                         if(this.question.replies[index].id == e.id){
                             this.question.replies.splice(index, 1);
+                            this.question.replies_count--;
                         }  
                     }
                 });

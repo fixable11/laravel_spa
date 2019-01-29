@@ -46,7 +46,10 @@
             </v-card>
         </v-flex>
 
-        <new-reply :question-slug="question.slug"></new-reply>
+        <new-reply v-if="signedIn" :question-slug="question.slug"></new-reply>
+        <v-flex v-else class="mt-3 subheading">
+            <router-link :to="{ name: 'login'}">Login to reply</router-link>
+        </v-flex>
 
     </v-layout>
 </template>
@@ -60,8 +63,8 @@ export default {
     components: { NewReply, EditReply, Like },
     data(){
         return {
-           replies: this.question.replies,
-           editState: false,
+            replies: this.question.replies,
+            editState: false,
         }
     },
 
@@ -95,7 +98,9 @@ export default {
     },
     
     computed:{
-        
+        signedIn(){
+            return User.signedIn();
+        }
     }
 }
 </script>

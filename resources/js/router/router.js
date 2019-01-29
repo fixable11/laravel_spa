@@ -10,6 +10,7 @@ import Forum from '../components/forum/Forum.vue';
 import Question from '../components/forum/pages/Question.vue';
 import Ask from '../components/forum/pages/Ask.vue';
 import CreateCategory from '../components/forum/pages/CreateCategory.vue';
+import NotFoundComponent from '../components/NotFoundComponent.vue';
 
 
 const routes = [
@@ -48,6 +49,9 @@ const routes = [
         path: '/categories/create',
         component: CreateCategory,
     },
+
+    { path: '*', component: NotFoundComponent }
+    
 ];
 
 export const router = new VueRouter({
