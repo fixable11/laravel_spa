@@ -1,8 +1,9 @@
 <template>
   <v-parallax
+    id="inspire"
     dark
-    style="height: 100%"
     src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+    height="100%"
   >
     <v-layout
       align-center

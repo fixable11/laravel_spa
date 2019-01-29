@@ -2282,10 +2282,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     like: function like() {
-      if (User.signedIn()) {
-        this.liked ? this.decr() : this.incr();
-        this.liked = !this.liked;
+      if (!User.signedIn()) {
+        flash('You need to be authorized to do this action', 'info');
+        return;
       }
+
+      this.liked ? this.decr() : this.incr();
+      this.liked = !this.liked;
     },
     incr: function incr() {
       var _this2 = this;
@@ -2731,7 +2734,9 @@ __webpack_require__.r(__webpack_exports__);
         _this4.$set(category, 'slug', res.data.slug);
 
         _this4.$set(category, 'editState', !category.editState);
-      }).catch();
+      }).catch(function (error) {
+        return flash(error.message, 'error');
+      });
     },
     newName: function newName(_newName, category) {
       category.newName = _newName;
@@ -2743,6 +2748,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     disabled: function disabled() {
       return !this.form.name;
+    },
+    isAdmin: function isAdmin() {
+      return !!User.isAdmin();
     }
   }
 });
@@ -2758,6 +2766,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -65517,25 +65526,27 @@ var render = function() {
                 ? _c(
                     "v-list-tile",
                     [
-                      _c(
-                        "v-list-tile-action",
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { icon: "", small: "" },
-                              on: {
-                                click: function($event) {
-                                  _vm.edit(category)
-                                }
-                              }
-                            },
-                            [_c("v-icon", [_vm._v("edit")])],
+                      _vm.isAdmin
+                        ? _c(
+                            "v-list-tile-action",
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { icon: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.edit(category)
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("edit")])],
+                                1
+                              )
+                            ],
                             1
                           )
-                        ],
-                        1
-                      ),
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "v-list-tile-content",
@@ -65551,29 +65562,31 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c(
-                        "v-list-tile-action",
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { icon: "", small: "" },
-                              on: {
-                                click: function($event) {
-                                  _vm.destroy(category, index)
-                                }
-                              }
-                            },
+                      _vm.isAdmin
+                        ? _c(
+                            "v-list-tile-action",
                             [
-                              _c("v-icon", { attrs: { color: "red" } }, [
-                                _vm._v("delete")
-                              ])
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { icon: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.destroy(category, index)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("v-icon", { attrs: { color: "red" } }, [
+                                    _vm._v("delete")
+                                  ])
+                                ],
+                                1
+                              )
                             ],
                             1
                           )
-                        ],
-                        1
-                      )
+                        : _vm._e()
                     ],
                     1
                   )
@@ -65674,10 +65687,11 @@ var render = function() {
   return _c(
     "v-parallax",
     {
-      staticStyle: { height: "100%" },
       attrs: {
+        id: "inspire",
         dark: "",
-        src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+        src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
+        height: "100%"
       }
     },
     [
@@ -105503,7 +105517,7 @@ function () {
   }, {
     key: "storeUser",
     value: function storeUser(user) {
-      localStorage.setItem('user', user);
+      localStorage.setItem('user', JSON.stringify(user));
     }
   }, {
     key: "store",
@@ -105683,10 +105697,10 @@ function () {
     key: "responseAfterLogin",
     value: function responseAfterLogin(res) {
       var access_token = res.data.access_token;
-      var username = res.data.user;
+      var user = res.data.user;
 
       if (_Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(access_token)) {
-        _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].store(username, access_token);
+        _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].store(user, access_token);
       }
     }
   }, {
@@ -105713,17 +105727,30 @@ function () {
   }, {
     key: "name",
     value: function name() {
-      if (this.signedIn) {
-        return _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].getUser();
-      }
+      return this.get().name;
+    }
+  }, {
+    key: "isAdmin",
+    value: function isAdmin() {
+      return this.get().is_admin;
     }
   }, {
     key: "id",
     value: function id() {
-      if (this.signedIn) {
-        var payload = _Token__WEBPACK_IMPORTED_MODULE_0__["default"].payload(_AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].getToken());
-        return payload.sub;
+      // if(this.signedIn()){
+      //     const payload = Token.payload(AppStorage.getToken());
+      //     return payload.sub;
+      // }
+      return this.get().id;
+    }
+  }, {
+    key: "get",
+    value: function get() {
+      if (this.signedIn()) {
+        return JSON.parse(_AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].getUser());
       }
+
+      return false;
     }
   }, {
     key: "own",

@@ -30,7 +30,7 @@
 
                 <v-list-tile v-if="!category.editState">
 
-                        <v-list-tile-action>
+                        <v-list-tile-action v-if="isAdmin">
                             <v-btn icon small @click="edit(category)">
                                 <v-icon>edit</v-icon>
                             </v-btn>
@@ -42,7 +42,7 @@
                             </v-list-tile-title>
                         </v-list-tile-content>
 
-                        <v-list-tile-action>
+                        <v-list-tile-action v-if="isAdmin">
                             <v-btn icon small @click="destroy(category, index)">
                                 <v-icon color="red">delete</v-icon>
                             </v-btn>
@@ -108,7 +108,7 @@ export default {
 
     methods:{
         create(){
-            
+
             if(!User.signedIn()){
                 flash('You need to be authorized to do this action', 'info');
                 return;
@@ -145,7 +145,7 @@ export default {
                 this.$set(category, 'slug', res.data.slug);
                 this.$set(category, 'editState', !category.editState);
             })
-            .catch();
+            .catch(error => flash(error.message, 'error'));
 
         },
 
@@ -162,6 +162,10 @@ export default {
 
         disabled(){
             return !(this.form.name);
+        },
+
+        isAdmin(){
+            return !!User.isAdmin();
         }
     }
 }

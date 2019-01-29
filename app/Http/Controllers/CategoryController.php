@@ -58,6 +58,8 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
+        $this->authorize('update', $category);
+
         $category->update([
             'name' => $request->name,
             'slug' => str_slug($request->name),

@@ -37,6 +37,8 @@ class ReplyController extends Controller
      */
     public function store(Question $question, Request $request)
     {
+        $request->merge(['user_id' => auth()->id()]);
+
         $reply = $question->replies()->create($request->all());
 
         if($reply->user_id !== $question->user_id){

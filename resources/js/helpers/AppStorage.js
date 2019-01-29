@@ -9,7 +9,7 @@ class AppStorage {
     }
 
     storeUser(user){
-        localStorage.setItem('user', user);
+        localStorage.setItem('user', JSON.stringify(user));
     }
 
     store(user, token){

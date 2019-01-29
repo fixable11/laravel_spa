@@ -29,12 +29,13 @@ export default {
     methods: {
 
         like(){
-            if(User.signedIn()){
-                
-
-                this.liked ? this.decr() : this.incr();
-                this.liked = !this.liked;
+            if(!User.signedIn()){
+                flash('You need to be authorized to do this action', 'info');
+                return;
             }
+
+            this.liked ? this.decr() : this.incr();
+            this.liked = !this.liked;
         },
 
         incr(){
