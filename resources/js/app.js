@@ -21,9 +21,11 @@ Vue.use(VueSimplemde);
 
 
 import User from "./helpers/User";
+import Exception from "./helpers/Exception";
 //import AppStorage from "./helpers/AppStorage";
 
 window.User = User;
+window.Exception = Exception;
 //window.AppStorage = AppStorage;
 
 /**
