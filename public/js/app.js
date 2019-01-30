@@ -64759,7 +64759,7 @@ var render = function() {
         [
           _c(
             "v-flex",
-            { attrs: { xs12: "", md9: "" } },
+            { attrs: { xs12: "", "order-xs2": "", "order-md1": "", md9: "" } },
             _vm._l(_vm.questions, function(question, index) {
               return _c("question", {
                 key: index,
@@ -64769,7 +64769,12 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-flex", { attrs: { xs12: "", md3: "" } }, [_c("sidebar")], 1)
+          _c(
+            "v-flex",
+            { attrs: { xs12: "", "order-xs1": "", "order-md2": "", md3: "" } },
+            [_c("sidebar")],
+            1
+          )
         ],
         1
       )
@@ -105627,8 +105632,11 @@ function () {
       var payload = this.payload(token);
 
       if (payload) {
-        //return payload.iss == App.loginUrl || App.signupUrl ? true : false;
-        return payload.iss == 'http://lara/api/auth/login' || 'http://lara/api/auth/signup' ? true : false;
+        if (true) {
+          return true;
+        }
+
+        return payload.iss == App.loginUrl || App.signupUrl ? true : false;
       }
 
       return false;

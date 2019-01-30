@@ -34,7 +34,6 @@ class QuestionController extends Controller
      */
     public function store(QuestionRequest $request)
     {
-        dd($request);
         $question = auth()->user()->questions()->create($request->all());
 
         return response(new QuestionResource($question), 201);

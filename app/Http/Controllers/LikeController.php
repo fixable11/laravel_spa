@@ -10,24 +10,38 @@ use App\Events\LikeEvent;
 
 class LikeController extends Controller
 {
-
+    
     public function __construct()
     {
         $this->middleware('jwt');
     }
-
+    
+    /**
+     * Likes specific reply
+     *
+     * @param Question $question
+     * @param Reply $reply
+     * @return void
+     */
     public function like(Question $question, Reply $reply)
     {
-        $reply->like()->create([
+        $reply->likes()->create([
             'user_id' => auth()->id()
         ]);
 
         broadcast(new LikeEvent($reply->id, 1))->toOthers();
     }
 
+    /**
+     * Unlikes specific reply
+     *
+     * @param Question $question
+     * @param Reply $reply
+     * @return void
+     */
     public function unlike(Question $question, Reply $reply)
     {
-        $reply->like()->where([
+        $reply->likes()->where([
             'user_id' => auth()->id()
         ])->first()
           ->delete();

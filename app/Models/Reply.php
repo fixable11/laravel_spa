@@ -15,10 +15,6 @@ class Reply extends Model
     protected static function boot()
     {
         parent::boot();
-
-        // static::creating(function($reply){
-        //     $reply->user_id = auth()->id();
-        // });
     }
 
     /**
@@ -53,7 +49,7 @@ class Reply extends Model
      *
      * @return App\Models\Like
      */
-    public function like()
+    public function likes()
     {
         return $this->hasMany(Like::class);
     }

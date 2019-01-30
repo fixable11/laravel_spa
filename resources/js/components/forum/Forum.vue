@@ -2,7 +2,7 @@
     <v-container grid-list-md>
         <v-layout row>
 
-            <v-flex xs12 md9>
+            <v-flex xs12 order-xs2 order-md1 md9>
                 <question 
                 v-for="(question, index) in questions"
                 :key="index"
@@ -10,7 +10,7 @@
                 ></question>
             </v-flex>
             
-            <v-flex xs12 md3>
+            <v-flex xs12 order-xs1 order-md2 md3>
                 <sidebar></sidebar>
             </v-flex>
 

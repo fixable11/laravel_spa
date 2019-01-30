@@ -21,12 +21,8 @@
 </head>
 <body>
     <div id="app">
-        @include('layouts.nav')
 
         @yield('content')
-        {{-- <main class="main">
-            @yield('content')
-        </main> --}}
 
         <flash message="{{ session('flash') }}"></flash> 
 
@@ -39,6 +35,8 @@
             'signedIn' => Auth::check(),
             'PUSHER_APP_KEY' => env('PUSHER_APP_KEY'),
             'PUSHER_APP_CLUSTER' => env('PUSHER_APP_CLUSTER'),
+            'loginUrl' => route('login'),
+            'signupUrl' => route('signup'),
         ]) !!}
     </script>
 
