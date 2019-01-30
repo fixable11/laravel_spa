@@ -1,3 +1,5 @@
+https://spa.fixable.org.ua - working example
+
 ## Installation
 
 Clone this repository
@@ -6,7 +8,7 @@ Clone this repository
 git clone https://github.com/fixable11/laravel_spa.git
 ```
 
-Install composer
+Install composer dependencies
 
 ```bash
 composer install
