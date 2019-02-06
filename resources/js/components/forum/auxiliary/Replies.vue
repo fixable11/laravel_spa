@@ -1,7 +1,10 @@
 <template>
     <v-layout row>
         <v-flex 
-        md12 
+        md12
+        xs12
+        sm12
+        lg12
         v-for="(reply, index) in replies" 
         :key="index"
         class="mt-4">
